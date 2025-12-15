@@ -1,0 +1,41 @@
+<script>
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let delivery = 5;
+
+// ====== AGREGAR PLATO ======
+function agregar(plato, precio){
+    let existe = carrito.find(p => p.plato === plato);
+
+    if(existe){
+        existe.cantidad++;
+    }else{
+        carrito.push({plato, precio, cantidad:1});
+    }
+
+    guardar();
+    mostrar();
+}
+
+// ====== ELIMINAR PLATO ======
+function quitar(plato){
+    carrito = carrito.filter(p => p.plato !== plato);
+    guardar();
+    mostrar();
+}
+
+// ====== MOSTRAR CARRITO ======
+function mostrar(){
+    let lista = document.getElementById("lista");
+    lista.innerHTML = "";
+
+    let subtotal = 0;
+
+    carrito.forEach(item=>{
+        let totalItem = item.precio * item.cantidad;
+        subtotal += totalItem;
+
+        lista.innerHTML += `
+        <li>
+
+
+        
